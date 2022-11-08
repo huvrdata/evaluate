@@ -4,8 +4,7 @@
   "description": "evaluate calculations using custom formulas - based on formulajs and mathjs",
   "main": "dist/evaluate.js",
   "scripts": {
-    "test": "make test",
-    "prepublish": "make dist"
+    "test": "make test"
   },
   "files": ["README.md", "LICENSE", "dist/"],
   "repository": {

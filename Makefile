@@ -10,8 +10,8 @@ test: build
 dist: test
 	docker run --volume ${PWD}/dist:${ROOT}/dist ${IMAGE_TAG} npx webpack
 
-release:
-	npx np
+release: dist
+	npx np --no-tests  # (tests already run by make)
 
 # https://stackoverflow.com/questions/2145590/what-is-the-purpose-of-phony-in-a-makefile
 .PHONY: build test dist
