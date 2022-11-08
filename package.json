@@ -1,11 +1,12 @@
 {
   "name": "@huvrdata/evaluate",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "evaluate calculations using custom formulas - based on formulajs and mathjs",
-  "main": "evaluate.js",
+  "main": "dist/evaluate.js",
   "scripts": {
     "test": "node test/index.test.js"
   },
+  "files": ["README.md", "LICENSE", "dist/"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/huvrdata/evaluate.git"
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/huvrdata/evaluate#readme",
   "devDependencies": {
+    "np": "^7.6.2",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
   },
