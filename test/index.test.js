@@ -1,11 +1,18 @@
 
-const { describe, it } = require('node:test');
-const assert = require('node:assert').strict;
+import { describe, it } from "node:test";
+import assert from "node:assert/strict";
 
-const { evaluate } = require("../src/index");
+import { evaluate } from "../src/index.js";
+
+// let evaluate;
 
 
-describe("evaluate", () => {
+
+describe("evaluate", async () => {
+
+  if (process.env.USE_DIST) {
+    evaluate = (await import("../dist/evaluate.js")).evaluate;
+  }
 
   function BASE_CONTEXT() {
     return {

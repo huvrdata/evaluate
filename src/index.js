@@ -1,6 +1,6 @@
-const formulajs = require("formulajs");
-const { EvaluationError } = require("./errors");
-const { limitedParser } = require("./parser");
+import formulajs from "formulajs";
+import { EvaluationError } from "./errors.js";
+import { limitedParser } from "./parser.js";
 
 
 /**
@@ -44,6 +44,7 @@ function evaluate(expression, context={}, options={}) {
   }
 }
 
-module.exports = {
+export {
   evaluate,
+  EvaluationError,
 };

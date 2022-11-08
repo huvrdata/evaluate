@@ -1,4 +1,4 @@
-const { create, all } = require("mathjs");
+import { create, all } from "mathjs";
 const mathjs = create(all);
 
 // limit parser capabilities to be more secure
@@ -13,4 +13,4 @@ mathjs.import({
   derivative: function () { throw new Error("undefined symbol derivative"); }
 }, { override: true })
 
-module.exports = { limitedParser };
+export { limitedParser };
