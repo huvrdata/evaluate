@@ -1,8 +1,8 @@
 
 import { describe, it } from "node:test";
-import assert from "node:assert/strict";
+import assert from "node:assert";
 
-import { evaluate } from "../src/index.js";
+import { evaluate, flattenContext } from "../src/index.js";
 
 // let evaluate;
 
@@ -103,4 +103,79 @@ describe("evaluate", async () => {
     assert.throws(() => evaluate(expression, BASE_CONTEXT), { name: "EvaluationError", message: /undefined symbol evaluate/i });
   });
 
+  it("should have access to custom functions - COALESCE", () => {
+
+    const expression = "COALESCE($values.a, '')";
+    const context = { $values: {} };
+
+    assert.equal(evaluate(expression, context), '');
+  });
+});
+
+
+describe("flattenContext", () => {
+  it("should flatten up to 3 levels", () => {
+    const context = {
+      a0: {
+        b0: {
+          c0: 24,
+          c1: 25,
+        },
+        b1: {
+          c2: {
+            d: 24, // will not flatten
+          },
+          c3: 25,
+        },
+      },
+      a1: {
+        b2: {
+          c4: 24,
+          c5: 25,
+        },
+        b3: {
+          c6: 24,
+          c7: 25,
+        },
+      }
+    }
+
+    assert.deepEqual(
+      flattenContext(context),
+      {
+        a0__b0__c0: 24,
+        a0__b0__c1: 25,
+        a0__b1__c2: { d: 24 },
+        a0__b1__c3: 25,
+        a1__b2__c4: 24,
+        a1__b2__c5: 25,
+        a1__b3__c6: 24,
+        a1__b3__c7: 25,
+      },
+    )
+  });
+  it("should transform keys", () => {
+    const context = {
+      "a-0": {
+        "b-0": {
+          "c-0": 24,
+          "c-1": 25,
+        },
+        "b-1": {
+          "c-2": 24,
+          "c-3": 25,
+        },
+      },
+    }
+
+    assert.deepEqual(
+      flattenContext(context),
+      {
+        a_0__b_0__c_0: 24,
+        a_0__b_0__c_1: 25,
+        a_0__b_1__c_2: 24,
+        a_0__b_1__c_3: 25,
+      },
+    )
+  })
 });

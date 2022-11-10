@@ -13,4 +13,19 @@ mathjs.import({
   derivative: function () { throw new Error("undefined symbol derivative"); }
 }, { override: true })
 
-export { limitedParser };
+/**
+ * convenience func
+ *
+ * @param {Object} parser mathjs.parser
+ * @param {Object} context
+ */
+function addContextToParser(parser, context) {
+  if (!context) {
+    return;
+  }
+  for (const [name, func] of Object.entries(context)) {
+    parser.set(name, func);
+  }
+}
+
+export { limitedParser, addContextToParser };
