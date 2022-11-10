@@ -4,6 +4,9 @@
   "description": "evaluate calculations using custom formulas - based on formulajs and mathjs",
   "main": "dist/evaluate.js",
   "scripts": {
+    "build": "make build",
+    "dist": "make dist",
+    "release": "make release",
     "test": "make test"
   },
   "files": [
@@ -24,8 +27,7 @@
   "homepage": "https://github.com/huvrdata/evaluate#readme",
   "devDependencies": {
     "np": "^7.6.2",
-    "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0"
+    "rollup": "^3.2.5"
   },
   "dependencies": {
     "formulajs": "^1.0.8",

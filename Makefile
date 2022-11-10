@@ -12,7 +12,6 @@ _test:
 test: build _test
 
 _dist:
-	# docker run --volume ${PWD}/dist:${ROOT}/dist ${IMAGE_TAG} npx webpack
 	docker run --volume ${PWD}/dist:${ROOT}/dist ${IMAGE_TAG} npx rollup ${ROOT}/src/index.js --file ${ROOT}/dist/evaluate.js --format umd --name "evaluate"
 
 dist: test _dist
