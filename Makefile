@@ -4,6 +4,8 @@ ROOT=/lib
 build:
 	docker build . -t ${IMAGE_TAG}
 
+# using `_<target>` to allow debugging release steps
+
 _test:
 	docker run ${IMAGE_TAG} node --trace-uncaught ${ROOT}/test/index.test.js
 
@@ -15,15 +17,10 @@ _dist:
 
 dist: test _dist
 
-_test_dist:
-	docker run -e USE_DIST=1 ${IMAGE_TAG} node --trace-uncaught ${ROOT}/test/index.test.js
-
-test__dist: dist _test_dist
-
 _release:
-	npx np --no-tests  # (tests already run by make)
+	npx np --no-tests  # (manually run tests with `make` command)
 
-release: test__dist _release
+release: dist _release
 
 # https://stackoverflow.com/questions/2145590/what-is-the-purpose-of-phony-in-a-makefile
-.PHONY: build test dist
+.PHONY: build _test test _dist dist _release release
