@@ -5,7 +5,7 @@ build:
 	docker build . -t ${IMAGE_TAG}
 
 _test:
-	docker run ${IMAGE_TAG} node ${ROOT}/test/index.test.js
+	docker run ${IMAGE_TAG} node --trace-uncaught ${ROOT}/test/index.test.js
 
 test: build _test
 
@@ -16,7 +16,7 @@ _dist:
 dist: test _dist
 
 _test_dist:
-	docker run -e USE_DIST=1 ${IMAGE_TAG} node ${ROOT}/test/index.test.js
+	docker run -e USE_DIST=1 ${IMAGE_TAG} node --trace-uncaught ${ROOT}/test/index.test.js
 
 test__dist: dist _test_dist
 

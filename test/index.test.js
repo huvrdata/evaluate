@@ -5,14 +5,13 @@ import assert from "node:assert";
 import { evaluate, flattenContext } from "../src/index.js";
 
 // let evaluate;
-
+if (process.env.USE_DIST) {
+  evaluate = (await import("../dist/evaluate.js")).evaluate;
+  flattenContext = (await import("../dist/evaluate.js")).flattenContext;
+}
 
 
 describe("evaluate", async () => {
-
-  if (process.env.USE_DIST) {
-    evaluate = (await import("../dist/evaluate.js")).evaluate;
-  }
 
   function BASE_CONTEXT() {
     return {
