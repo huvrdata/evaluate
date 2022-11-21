@@ -1,5 +1,5 @@
 import formulajs from "formulajs";
-import { EvaluationError } from "./errors.js";
+import { EvaluationError, wrapFormulaJSFunctionsWithErrorContext } from "./errors.js";
 import { limitedParser, addContextToParser } from "./parser.js";
 import * as customFunctions from "./functions.js";
 import { flattenContext } from "./utils.js";
@@ -28,7 +28,9 @@ function evaluate(expression, context={}, options={}) {
   // https://mathjs.org/docs/expressions/parsing.html#parser
   const parser = limitedParser();
 
-  addContextToParser(parser, formulajs);
+  for (const [name, func] of Object.entries(formulajs)) {
+    parser.set(name, wrapFormulaJSFunctionsWithErrorContext(name, func));
+  }
   addContextToParser(parser, customFunctions);
   addContextToParser(parser, context);
 

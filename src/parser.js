@@ -23,8 +23,8 @@ function addContextToParser(parser, context) {
   if (!context) {
     return;
   }
-  for (const [name, func] of Object.entries(context)) {
-    parser.set(name, func);
+  for (const [name, value] of Object.entries(context)) {
+    parser.set(name, value);
   }
 }
 
