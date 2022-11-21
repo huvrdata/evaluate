@@ -28,9 +28,9 @@ function wrapFormulaJSFunctionsWithErrorContext(formulaJSFunctionName, formulaJS
     if (result instanceof Error) {
       // see list of errors:
       //  https://github.com/formulajs/formulajs/blob/master/src/utils/error.js
-      const error = result;
-      error.name = error.message;
-      error.message = `${error.message} ${formulaJSFunctionName} ${JSON.stringify(args)}`;
+      const error = new Error();
+      error.name = result.message;
+      error.message = `${result.message} ${formulaJSFunctionName} ${JSON.stringify(args)}`;
       throw error;
     }
     return result;
