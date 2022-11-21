@@ -14,4 +14,27 @@ function EvaluationError(baseError) {
 // https://stackoverflow.com/questions/1382107/whats-a-good-way-to-extend-error-in-javascript/5251506#5251506
 EvaluationError.prototype = new Error;
 
-export { EvaluationError };
+/**
+ * @param {Function} formulaJSFunctionName function from formulajs lib (not using `formulaJSFunction.name` as it will likely be minified)
+ * @param {Function} formulaJSFunction function from formulajs lib
+ *
+ * @return {Function} function which will throw error, rather than return string
+ */
+function wrapFormulaJSFunctionsWithErrorContext(formulaJSFunctionName, formulaJSFunction) {
+  return function _wrappedFunction (...args) {
+
+    const result = formulaJSFunction(...args);
+
+    if (result instanceof Error) {
+      // see list of errors:
+      //  https://github.com/formulajs/formulajs/blob/master/src/utils/error.js
+      const error = result;
+      error.name = error.message;
+      error.message = `${error.message} ${formulaJSFunctionName} ${JSON.stringify(args)}`;
+      throw error;
+    }
+    return result;
+  }
+}
+
+export { EvaluationError , wrapFormulaJSFunctionsWithErrorContext };

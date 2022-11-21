@@ -63,7 +63,7 @@ describe("evaluate", async () => {
     const context = BASE_CONTEXT();
     context.$values.dates_a.date_a.value = "not a date"
 
-    assert.throws(() => evaluate(expression, context), { name: "EvaluationError", message: /unexpected type of argument/i });
+    assert.throws(() =>  evaluate(expression, context), { name: "EvaluationError", message: /VALUE.*DAYS/i });
   });
 
   it("should throw meaningful error if invalid context lookup", () => {
