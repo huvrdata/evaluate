@@ -1,4 +1,4 @@
-import formulajs from "formulajs";
+import * as formulajs from "@formulajs/formulajs";
 import { EvaluationError, wrapFormulaJSFunctionsWithErrorContext } from "./errors.js";
 import { limitedParser, addContextToParser } from "./parser.js";
 import * as customFunctions from "./functions.js";
