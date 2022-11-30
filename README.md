@@ -22,6 +22,8 @@ A few additional functions are available:
 npm install --save @huvrdata/evaluate
 ```
 
+(note - may need to update bundler config to use `.mjs` if seeing `Cannot find module '@formulajs/formulajs'`, see: https://github.com/huvrdata/evaluate/issues/6)
+
 ## Usage
 
 ```js
