@@ -51,6 +51,13 @@ describe("evaluate", async () => {
     assert.equal(evaluate(expression, BASE_CONTEXT()), "A IS LESS THAN B");
   });
 
+  it("should trim whitespace and not treat newline as array", () => {
+    const expression = `1
+    `;
+
+    assert.equal(evaluate(expression), 1);
+  });
+
   it("can use string concatenation along with functions", () => {
     const expression = `CONCATENATE("In 1 year are ", DAYS($values.dates_a.date_b.value, $values.dates_a.date_a.value) - 1, " days")`
 

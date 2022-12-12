@@ -35,7 +35,7 @@ function evaluate(expression, context={}, options={}) {
   addContextToParser(parser, context);
 
   try {
-    return parser.evaluate(expression)
+    return parser.evaluate(expression.trim());
   } catch (e) {
     if (debug) {
       console.debug(e);
