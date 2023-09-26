@@ -18,7 +18,6 @@
     "type": "git",
     "url": "git+https://github.com/huvrdata/evaluate.git"
   },
-  "type": "module",
   "author": "david.wolgemuth@huvrdata.com",
   "license": "BSD-2-Clause",
   "bugs": {
