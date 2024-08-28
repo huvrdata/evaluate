@@ -12,7 +12,7 @@ _test:
 test: build _test
 
 _dist:
-	docker run --volume ${PWD}/dist:${ROOT}/dist ${IMAGE_TAG} npx esbuild ${ROOT}/src/index.js --outfile=${ROOT}/dist/evaluate.js --format=esm --global-name="evaluate"
+	docker run --volume ${PWD}/dist:${ROOT}/dist ${IMAGE_TAG} npx esbuild ${ROOT}/src/index.js --outfile=${ROOT}/dist/evaluate.js --bundle --format=esm --global-name="evaluate"
 
 dist: test _dist
 
