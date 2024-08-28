@@ -2,7 +2,7 @@
   "name": "@huvrdata/evaluate",
   "version": "2.0.0",
   "description": "evaluate calculations using custom formulas - based on formulajs and mathjs",
-  "main": "dist/evaluate.js",
+  "main": "dist/evaluate.mjs",
   "scripts": {
     "build": "make build",
     "dist": "make dist",
