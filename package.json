@@ -26,8 +26,8 @@
   },
   "homepage": "https://github.com/huvrdata/evaluate#readme",
   "devDependencies": {
-    "np": "^7.6.2",
-    "rollup": "^3.2.5"
+    "esbuild": "^0.23.1",
+    "np": "^7.6.2"
   },
   "dependencies": {
     "@formulajs/formulajs": "^3.1.7",
