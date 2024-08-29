@@ -1,6 +1,6 @@
 {
   "name": "@huvrdata/evaluate",
-  "version": "2.0.0",
+  "version": "3.1.0",
   "description": "evaluate calculations using custom formulas - based on formulajs and mathjs",
   "main": "dist/evaluate.js",
   "scripts": {
@@ -30,7 +30,7 @@
     "rollup": "^3.2.5"
   },
   "dependencies": {
-    "@formulajs/formulajs": "^3.1.7",
-    "mathjs": "^11.3.3"
+    "@formulajs/formulajs": "^4.4.6",
+    "mathjs": "^13.1.1"
   }
 }
