@@ -3,6 +3,7 @@
   "version": "3.1.0",
   "description": "evaluate calculations using custom formulas - based on formulajs and mathjs",
   "main": "dist/evaluate.js",
+  "module": "dist/evaluate.mjs",
   "scripts": {
     "build": "make build",
     "dist": "make dist",
@@ -26,8 +27,8 @@
   },
   "homepage": "https://github.com/huvrdata/evaluate#readme",
   "devDependencies": {
-    "np": "^7.6.2",
-    "rollup": "^3.2.5"
+    "esbuild": "^0.23.1",
+    "np": "^7.6.2"
   },
   "dependencies": {
     "@formulajs/formulajs": "^4.4.6",
