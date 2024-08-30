@@ -12,8 +12,7 @@ _test:
 test: build _test
 
 _dist:
-	docker run --volume ${PWD}/dist:${ROOT}/dist ${IMAGE_TAG} npx esbuild ${ROOT}/src/index.js --outfile=${ROOT}/dist/evaluate.js --bundle --format=cjs --global-name="evaluate"
-	docker run --volume ${PWD}/dist:${ROOT}/dist ${IMAGE_TAG} npx esbuild ${ROOT}/src/index.js --outfile=${ROOT}/dist/evaluate.mjs --bundle --format=esm --global-name="evaluate"
+	docker run --volume ${PWD}/dist:${ROOT}/dist ${IMAGE_TAG} npx rollup ${ROOT}/src/index.js --file ${ROOT}/dist/evaluate.js --format umd --name "evaluate"
 
 dist: test _dist
 
