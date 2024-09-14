@@ -32,7 +32,7 @@ import { evaluate } from '@huvrdata/evaluate';
 const expression = `IF(
     SUM($values.a, $values.b) > $values.c,
     COALESCE($values.success_message, "success"),
-    COALESCE($values.failure_message, "failure"),
+    COALESCE($values.failure_message, "failure")
 )`
 const context = {
     $values: {
@@ -40,7 +40,7 @@ const context = {
         b: 4,
         c: 5,
         failure_message: "A + B < C",
-        failure_message: "A + B > C",
+        success_message: "A + B > C",
     },
 }
 
