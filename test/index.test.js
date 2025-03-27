@@ -1,4 +1,3 @@
-
 import { describe, it } from "node:test";
 import assert from "node:assert";
 
@@ -183,5 +182,45 @@ describe("flattenContext", () => {
         a_0__b_1__c_3: 25,
       },
     )
-  })
+  });
+});
+
+describe("badge", () => {
+  it("should return the length of an array or string", () => {
+    const expression = `BADGE($var)`;
+    const context = {$var: [100]};
+    assert.equal(evaluate(expression, context), "1");
+    const context2 = {$var: [1,2,3]};
+    assert.equal(evaluate(expression, context2), "3");
+    const context3 = {$var: 'hello'};
+    assert.equal(evaluate(expression, context3), "5");
+    const context4 = {$var: {"a": "1", "b": "2"}};
+    assert.equal(evaluate(expression, context4), "");
+  });
+  it("should return 0 if the value is not an array or is empty or undefined", () => {
+    const expression = `BADGE($var)`;
+    const context = {$var: []};
+    assert.equal(evaluate(expression, context), "");
+    const context2 = {$var: undefined};
+    assert.equal(evaluate(expression, context2), "");
+    const context3 = {$var: 1};
+    assert.equal(evaluate(expression, context3), "");
+  });
+  it("should return the length of an array, which is populated with objects", () => {
+    const expression = `BADGE($local.add_media__media)`;
+    const context = {
+      $local: {
+        add_media__media: [
+          { id: 1, name: "a" },
+          { id: 2, name: { abc: 1 }},
+        ]
+      }
+    };
+    assert.equal(evaluate(expression, context), "2");
+  });
+  it("should include the given prefix/postfix when provided", () => {
+    const expression = `BADGE($var,'count:[',']')`;
+    const context = {$var: [100]};
+    assert.equal(evaluate(expression, context), "count:[1]");
+  });
 });
