@@ -194,15 +194,17 @@ describe("badge", () => {
     assert.equal(evaluate(expression, context2), "3");
     const context3 = {$var: 'hello'};
     assert.equal(evaluate(expression, context3), "5");
+    const context4 = {$var: {"a": "1", "b": "2"}};
+    assert.equal(evaluate(expression, context4), "");
   });
   it("should return 0 if the value is not an array or is empty or undefined", () => {
     const expression = `BADGE($var)`;
     const context = {$var: []};
-    assert.equal(evaluate(expression, context), "0");
+    assert.equal(evaluate(expression, context), "");
     const context2 = {$var: undefined};
-    assert.equal(evaluate(expression, context2), "0");
+    assert.equal(evaluate(expression, context2), "");
     const context3 = {$var: 1};
-    assert.equal(evaluate(expression, context3), "0");
+    assert.equal(evaluate(expression, context3), "");
   });
   it("should return the length of an array, which is populated with objects", () => {
     const expression = `BADGE($local.add_media__media)`;
