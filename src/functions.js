@@ -14,9 +14,10 @@ export function COALESCE(...args) {
 };
 
 /**
- * Return the size on an array as text, with an optional given prefix
+ * Return the size on an array as text, with an optional given prefix/postfix
  */
-export function BADGE(array, prefix = '') {
+export function BADGE(array, prefix = '', postfix = '') {
   const length = array?.length || '';
-  return `${prefix}${length}`;
+  if (length) return `${prefix}${length}${postfix}`;
+  return '';
 }

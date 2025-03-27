@@ -218,9 +218,9 @@ describe("badge", () => {
     };
     assert.equal(evaluate(expression, context), "2");
   });
-  it("should include the given prefix when provided", () => {
-    const expression = `BADGE($var,'count:')`;
+  it("should include the given prefix/postfix when provided", () => {
+    const expression = `BADGE($var,'count:[',']')`;
     const context = {$var: [100]};
-    assert.equal(evaluate(expression, context), "count:1");
+    assert.equal(evaluate(expression, context), "count:[1]");
   });
 });
