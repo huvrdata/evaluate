@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@formulajs/formulajs": "^4.4.6",
+    "@rollup/plugin-node-resolve": "16.0.1",
     "mathjs": "^13.1.1"
   }
 }
