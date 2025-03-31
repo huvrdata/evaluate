@@ -9,9 +9,7 @@ if (process.env.USE_DIST) {
   flattenContext = (await import("../dist/evaluate.js")).flattenContext;
 }
 
-
 describe("evaluate", async () => {
-
   function BASE_CONTEXT() {
     return {
       $values: {
@@ -25,10 +23,10 @@ describe("evaluate", async () => {
         dates_a: {
           date_a: { value: "1/1/2012" },
           date_b: { value: "1/1/2013" },
-        }
-      }
+        },
+      },
     };
-  };
+  }
 
   it("should return sum of numbers as a number", () => {
     const expression = `SUM(
@@ -58,18 +56,24 @@ describe("evaluate", async () => {
   });
 
   it("can use string concatenation along with functions", () => {
-    const expression = `CONCATENATE("In 1 year are ", DAYS($values.dates_a.date_b.value, $values.dates_a.date_a.value) - 1, " days")`
+    const expression = `CONCATENATE("In 1 year are ", DAYS($values.dates_a.date_b.value, $values.dates_a.date_a.value) - 1, " days")`;
 
-    assert.equal(evaluate(expression, BASE_CONTEXT()), "In 1 year are 365 days");
+    assert.equal(
+      evaluate(expression, BASE_CONTEXT()),
+      "In 1 year are 365 days"
+    );
   });
 
   it("should throw meaningful error message if values are not correct", () => {
-    const expression = `CONCATENATE("In 1 year are ", DAYS($values.dates_a.date_b.value, $values.dates_a.date_a.value) - 1, " days")`
+    const expression = `CONCATENATE("In 1 year are ", DAYS($values.dates_a.date_b.value, $values.dates_a.date_a.value) - 1, " days")`;
 
     const context = BASE_CONTEXT();
-    context.$values.dates_a.date_a.value = "not a date"
+    context.$values.dates_a.date_a.value = "not a date";
 
-    assert.throws(() =>  evaluate(expression, context), { name: "EvaluationError", message: /VALUE.*DAYS/i });
+    assert.throws(() => evaluate(expression, context), {
+      name: "EvaluationError",
+      message: /VALUE.*DAYS/i,
+    });
   });
 
   it("should throw meaningful error if invalid context lookup", () => {
@@ -82,7 +86,10 @@ describe("evaluate", async () => {
     const context = BASE_CONTEXT();
     context.$values.nums_1 = {};
 
-    assert.throws(() => evaluate(expression, context), { name: "EvaluationError", message: /cannot read properties of undefined/i });
+    assert.throws(() => evaluate(expression, context), {
+      name: "EvaluationError",
+      message: /cannot read properties of undefined/i,
+    });
   });
 
   it("should throw meaningful error for syntax errors", () => {
@@ -92,31 +99,38 @@ describe("evaluate", async () => {
       $values.nums_b.num_a.value,
     )`;
 
-    assert.throws(() => evaluate(expression, BASE_CONTEXT), { name: "EvaluationError", message: /value expected/i });
+    assert.throws(() => evaluate(expression, BASE_CONTEXT), {
+      name: "EvaluationError",
+      message: /value expected/i,
+    });
   });
 
   it("should not allow access to system functions", () => {
     const expression = `console.log(this)`;
 
-    assert.throws(() => evaluate(expression, BASE_CONTEXT), { name: "EvaluationError", message: /undefined symbol console/i });
+    assert.throws(() => evaluate(expression, BASE_CONTEXT), {
+      name: "EvaluationError",
+      message: /undefined symbol console/i,
+    });
   });
 
   it("should not allow access to dangerous mathjs evaluation", () => {
     // see list of dangerous functions https://mathjs.org/examples/advanced/more_secure_eval.js.html
     const expression = `evaluate("24")`;
 
-    assert.throws(() => evaluate(expression, BASE_CONTEXT), { name: "EvaluationError", message: /undefined symbol evaluate/i });
+    assert.throws(() => evaluate(expression, BASE_CONTEXT), {
+      name: "EvaluationError",
+      message: /undefined symbol evaluate/i,
+    });
   });
 
   it("should have access to custom functions - COALESCE", () => {
-
     const expression = "COALESCE($values.a, '')";
     const context = { $values: {} };
 
-    assert.equal(evaluate(expression, context), '');
+    assert.equal(evaluate(expression, context), "");
   });
 });
-
 
 describe("flattenContext", () => {
   it("should flatten up to 3 levels", () => {
@@ -142,22 +156,19 @@ describe("flattenContext", () => {
           c6: 24,
           c7: 25,
         },
-      }
-    }
-
-    assert.deepEqual(
-      flattenContext(context),
-      {
-        a0__b0__c0: 24,
-        a0__b0__c1: 25,
-        a0__b1__c2: { d: 24 },
-        a0__b1__c3: 25,
-        a1__b2__c4: 24,
-        a1__b2__c5: 25,
-        a1__b3__c6: 24,
-        a1__b3__c7: 25,
       },
-    )
+    };
+
+    assert.deepEqual(flattenContext(context), {
+      a0__b0__c0: 24,
+      a0__b0__c1: 25,
+      a0__b1__c2: { d: 24 },
+      a0__b1__c3: 25,
+      a1__b2__c4: 24,
+      a1__b2__c5: 25,
+      a1__b3__c6: 24,
+      a1__b3__c7: 25,
+    });
   });
   it("should transform keys", () => {
     const context = {
@@ -171,39 +182,36 @@ describe("flattenContext", () => {
           "c-3": 25,
         },
       },
-    }
+    };
 
-    assert.deepEqual(
-      flattenContext(context),
-      {
-        a_0__b_0__c_0: 24,
-        a_0__b_0__c_1: 25,
-        a_0__b_1__c_2: 24,
-        a_0__b_1__c_3: 25,
-      },
-    )
+    assert.deepEqual(flattenContext(context), {
+      a_0__b_0__c_0: 24,
+      a_0__b_0__c_1: 25,
+      a_0__b_1__c_2: 24,
+      a_0__b_1__c_3: 25,
+    });
   });
 });
 
 describe("badge", () => {
   it("should return the length of an array or string", () => {
     const expression = `BADGE($var)`;
-    const context = {$var: [100]};
+    const context = { $var: [100] };
     assert.equal(evaluate(expression, context), "1");
-    const context2 = {$var: [1,2,3]};
+    const context2 = { $var: [1, 2, 3] };
     assert.equal(evaluate(expression, context2), "3");
-    const context3 = {$var: 'hello'};
+    const context3 = { $var: "hello" };
     assert.equal(evaluate(expression, context3), "5");
-    const context4 = {$var: {"a": "1", "b": "2"}};
+    const context4 = { $var: { a: "1", b: "2" } };
     assert.equal(evaluate(expression, context4), "");
   });
   it("should return 0 if the value is not an array or is empty or undefined", () => {
     const expression = `BADGE($var)`;
-    const context = {$var: []};
+    const context = { $var: [] };
     assert.equal(evaluate(expression, context), "");
-    const context2 = {$var: undefined};
+    const context2 = { $var: undefined };
     assert.equal(evaluate(expression, context2), "");
-    const context3 = {$var: 1};
+    const context3 = { $var: 1 };
     assert.equal(evaluate(expression, context3), "");
   });
   it("should return the length of an array, which is populated with objects", () => {
@@ -212,15 +220,58 @@ describe("badge", () => {
       $local: {
         add_media__media: [
           { id: 1, name: "a" },
-          { id: 2, name: { abc: 1 }},
-        ]
-      }
+          { id: 2, name: { abc: 1 } },
+        ],
+      },
     };
     assert.equal(evaluate(expression, context), "2");
   });
   it("should include the given prefix/postfix when provided", () => {
     const expression = `BADGE($var,'count:[',']')`;
-    const context = {$var: [100]};
+    const context = { $var: [100] };
     assert.equal(evaluate(expression, context), "count:[1]");
+  });
+});
+
+describe("HLOOKUP function", () => {
+  const baseContext = {
+    $var: [
+      { value: "xmas", label: "Christmas", date: "12/25" },
+      { value: "easter", label: "Easter Sunday", date: "4/24" },
+    ],
+  };
+
+  it("should return value found in array using default keys", () => {
+    const expression = `HLOOKUP($var, 'easter')`;
+    assert.equal(evaluate(expression, baseContext), "Easter Sunday");
+    const expression2 = `HLOOKUP($var, 'valentines')`;
+    assert.equal(evaluate(expression2, baseContext), "Value Not Found");
+  });
+  it("should return value when keys are set", () => {
+    const expression = `HLOOKUP($var, '12/25', 'date', 'label')`;
+    assert.equal(evaluate(expression, baseContext), "Christmas");
+    const expression2 = `HLOOKUP($var, '12/25', 'date', 'value')`;
+    assert.equal(evaluate(expression2, baseContext), "xmas");
+  });
+  it("should return provided error message when not found", () => {
+    const expression = `HLOOKUP($var, 'valentines', 'date', 'label', 'Really Not Found')`;
+    assert.equal(evaluate(expression, baseContext), "Really Not Found");
+  });
+  it("should not throw error when value is undefined", () => {
+    const context = {
+      $var: undefined,
+    };
+    const expression = `HLOOKUP($var, 'valentines', 'date', 'label', 'Really Not Found')`;
+    assert.doesNotThrow(() => evaluate(expression, baseContext));
+  });
+  it("should return error when bad data is passed in", () => {
+    const context = {
+      $var: "not an array",
+    };
+    const expression = `HLOOKUP($var, 'valentines', 'date', 'label', 'Really Not Found')`;
+    // match exception
+    assert.throws(() => evaluate(expression, context), {
+      name: "EvaluationError",
+    });
   });
 });
