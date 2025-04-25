@@ -7,12 +7,12 @@ build:
 # using `_<target>` to allow debugging release steps
 
 _test:
-	docker run ${IMAGE_TAG} node --trace-uncaught ${ROOT}/test/index.test.js
+	docker run ${IMAGE_TAG} npm test 
 
 test: build _test
 
 _dist:
-	docker run --volume ${PWD}/dist:${ROOT}/dist ${IMAGE_TAG} npx rollup ${ROOT}/src/index.js --file ${ROOT}/dist/evaluate.js --format umd --name "evaluate"
+	docker run --volume ${PWD}/dist:${ROOT}/dist ${IMAGE_TAG} npm run dist
 
 dist: test _dist
 

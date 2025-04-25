@@ -6,9 +6,9 @@
   "module": "dist/evaluate.mjs",
   "scripts": {
     "build": "make build",
-    "dist": "make dist",
+    "dist": "npx rollup src/index.js --file dist/evaluate.js --format umd --name 'evaluate'",
     "release": "make release",
-    "test": "make test"
+    "test": "node --trace-uncaught test/index.test.js"
   },
   "files": [
     "README.md",
@@ -28,7 +28,8 @@
   "homepage": "https://github.com/huvrdata/evaluate#readme",
   "devDependencies": {
     "esbuild": "^0.23.1",
-    "np": "^7.6.2"
+    "np": "^7.6.2",
+    "rollup": "^4.40.0"
   },
   "dependencies": {
     "@formulajs/formulajs": "^4.4.6",
