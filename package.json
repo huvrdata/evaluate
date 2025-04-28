@@ -6,7 +6,7 @@
   "module": "dist/evaluate.mjs",
   "scripts": {
     "test": "node --trace-uncaught ./test/index.test.js",
-    "build": "rollup --config rollup.config.js",
+    "build": "npx rollup --config rollup.config.js",
     "dist": "npm run test && npm run build",
     "release": "np --no-tests"
   },  
