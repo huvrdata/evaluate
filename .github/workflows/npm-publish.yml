@@ -30,10 +30,13 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: |
-          TAG="latest"
-          if [[ "${{ github.event.release.tag_name }}" == *-* ]]; then
-            TAG="beta"
+          TAG_NAME="${{ github.event.release.tag_name }}"
+          if [[ "$TAG_NAME" == *"-"* ]]; then
+            echo "Publishing as prerelease (tag=beta)"
+            npm publish --tag beta
+          else
+            echo "Publishing as latest"
+            npm publish
           fi
-          npm publish --tag $TAG
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}

@@ -8,7 +8,7 @@
     "test": "node --trace-uncaught ./test/index.test.js",
     "build": "npx rollup --config rollup.config.js",
     "dist": "npm run test && npm run build",
-    "release": "npm run dist"
+    "release": "np --no-tests"
   },  
   "files": [
     "README.md",
