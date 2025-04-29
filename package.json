@@ -5,11 +5,11 @@
   "main": "dist/evaluate.js",
   "module": "dist/evaluate.mjs",
   "scripts": {
-    "build": "make build",
-    "dist": "make dist",
-    "release": "make release",
-    "test": "make test"
-  },
+    "test": "node --trace-uncaught ./test/index.test.js",
+    "build": "npx rollup --config rollup.config.js",
+    "dist": "npm run test && npm run build",
+    "release": "np --no-tests"
+  },  
   "files": [
     "README.md",
     "LICENSE",
