@@ -29,6 +29,11 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm run build
-      - run: npm publish --tag ${{ github.event.release.tag_name }}
+      - run: |
+          TAG="latest"
+          if [[ "${{ github.event.release.tag_name }}" == *-* ]]; then
+            TAG="beta"
+          fi
+          npm publish --tag $TAG
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
