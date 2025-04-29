@@ -29,6 +29,14 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm run build
-      - run: npm publish --tag ${{ github.event.release.tag_name }}
+      - run: |
+          TAG_NAME="${{ github.event.release.tag_name }}"
+          if [[ "$TAG_NAME" == *"-"* ]]; then
+            echo "Publishing as prerelease (tag=beta)"
+            npm publish --tag beta
+          else
+            echo "Publishing as latest"
+            npm publish
+          fi
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
