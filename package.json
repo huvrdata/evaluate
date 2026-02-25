@@ -4,6 +4,13 @@
   "description": "evaluate calculations using custom formulas - based on formulajs and mathjs",
   "main": "dist/evaluate.js",
   "module": "dist/evaluate.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/evaluate.mjs",
+      "require": "./dist/evaluate.js",
+      "default": "./dist/evaluate.js"
+    }
+  },
   "scripts": {
     "test": "node --trace-uncaught ./test/index.test.js",
     "build": "npx rollup --config rollup.config.js",
