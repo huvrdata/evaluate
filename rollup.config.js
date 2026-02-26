@@ -10,13 +10,17 @@ export default {
   input: "src/index.js", // Entry point of the application
   output: [
     {
-      file: "dist/evaluate.js", // UMD output file
-      format: "umd", // Universal Module Definition format
-      name: "evaluate", // Name of the global variable
+      file: "dist/evaluate.mjs", // ESM output
+      format: "es",
     },
     {
-      file: "dist/evaluate.mjs", // ESM output file
-      format: "es",
+      file: "dist/evaluate.cjs", // CommonJS output
+      format: "cjs",
+    },
+    {
+      file: "dist/evaluate.umd.js", // UMD output (browsers)
+      format: "umd",
+      name: "evaluate",
     },
   ],
   plugins: [commonjs(), nodeResolve()], // Plugins to resolve and bundle dependencies
