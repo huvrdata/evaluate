@@ -2,8 +2,15 @@
   "name": "@huvrdata/evaluate",
   "version": "3.2.0",
   "description": "evaluate calculations using custom formulas - based on formulajs and mathjs",
-  "main": "dist/evaluate.js",
+  "main": "dist/evaluate.cjs",
   "module": "dist/evaluate.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/evaluate.mjs",
+      "require": "./dist/evaluate.cjs",
+      "default": "./dist/evaluate.cjs"
+    }
+  },
   "scripts": {
     "test": "node --trace-uncaught ./test/index.test.js",
     "build": "npx rollup --config rollup.config.js",
