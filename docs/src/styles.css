@@ -1,0 +1,266 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  background: #f5f5f5;
+  color: #1a1a2e;
+  line-height: 1.6;
+}
+
+a {
+  color: #4361ee;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Header */
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: "SF Mono", SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+    monospace;
+}
+
+.subtitle {
+  margin-top: 0.5rem;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* Cards */
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.section-desc {
+  color: #555;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* Editor grid */
+
+.editor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .editor-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.editor-pane label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.btn-copy {
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #888;
+  background: transparent;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-copy:hover {
+  color: #4361ee;
+  border-color: #4361ee;
+}
+
+.code-editor {
+  width: 100%;
+  min-height: 140px;
+  padding: 0.75rem;
+  font-family: "SF Mono", SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+    monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  background: #1e1e2e;
+  color: #cdd6f4;
+  border: 1px solid #313244;
+  border-radius: 6px;
+  resize: vertical;
+  tab-size: 2;
+}
+
+.code-editor:focus {
+  outline: none;
+  border-color: #4361ee;
+  box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.25);
+}
+
+/* Actions */
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.btn-evaluate {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  background: #4361ee;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-evaluate:hover {
+  background: #3a56d4;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+/* Results */
+
+.result {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.result pre {
+  margin-top: 0.25rem;
+  font-family: "SF Mono", SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+    monospace;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.result-success {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+}
+
+.result-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+/* Examples / Function reference */
+
+.examples {
+  display: grid;
+  gap: 1rem;
+}
+
+.example-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.example-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.fn-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #4361ee;
+}
+
+.btn-try {
+  padding: 0.3rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4361ee;
+  background: transparent;
+  border: 1px solid #4361ee;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-try:hover {
+  background: #4361ee;
+  color: #fff;
+}
+
+.example-desc {
+  font-size: 0.88rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.example-expr {
+  font-family: "SF Mono", SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+    monospace;
+  font-size: 0.82rem;
+  background: #1e1e2e;
+  color: #cdd6f4;
+  padding: 0.5rem 0.75rem;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+/* Footer */
+
+.footer {
+  text-align: center;
+  padding-top: 1rem;
+  font-size: 0.85rem;
+  color: #888;
+}
