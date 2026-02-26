@@ -20,8 +20,8 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+      - name: Set version from release tag
+        run: npm version "${GITHUB_REF_NAME#v}" --no-git-tag-version
       - run: npm test
       - run: npm run build
       - run: npm publish --provenance --tag latest
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
