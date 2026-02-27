@@ -15,7 +15,10 @@
     "test": "node --trace-uncaught ./test/index.test.js",
     "build": "npx rollup --config rollup.config.js",
     "dist": "npm run test && npm run build",
-    "release": "np --no-tests"
+    "release": "np --no-tests",
+    "docs:dev": "npm run build && cd docs && npm install && npm run dev",
+    "docs:build": "cd docs && npm install && npm run build",
+    "vercel-build": "npm run build && npm run docs:build"
   },  
   "files": [
     "README.md",
